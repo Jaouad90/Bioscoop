@@ -1,60 +1,67 @@
-<script setup lang="ts">
-  import VueGallery from 'vue-gallery'
-</script>
-
 <template>
-  <div>
-    <gallery :images="images" :index="index" @close="index = null"></gallery>
-    <div
-      class="image"
-      v-for="(image, imageIndex) in images"
-      :key="imageIndex"
-      @click="index = imageIndex"
-      :style="{ backgroundImage: 'url(' + image + ')', width: '300px', height: '200px' }"
-    ></div>
-  </div>
+  <Carousel :itemsToShow="3.95" :wrapAround="true" :transition="500">
+    <Slide v-for="slide in 10" :key="slide">
+      <div class="carousel__item">{{ slide }}</div>
+    </Slide>
+
+    ...
+  </Carousel>
 </template>
 
-<script lang="ts">
+<script>
+import { defineComponent } from 'vue'
+import { Carousel, Pagination, Slide } from 'vue3-carousel'
 
-// const images = [
-//           'https://dummyimage.com/800/ffffff/000000',
-//           'https://dummyimage.com/1600/ffffff/000000',
-//           'https://dummyimage.com/1280/000000/ffffff',
-//           'https://dummyimage.com/400/000000/ffffff',
-//         ]
+import 'vue3-carousel/dist/carousel.css'
 
-// const index : any = null
-
-// const gallery = VueGallery
-
-
-  export default {
-    data: function () {
-      return {
-        images: [
-          'https://dummyimage.com/800/ffffff/000000',
-          'https://dummyimage.com/1600/ffffff/000000',
-          'https://dummyimage.com/1280/000000/ffffff',
-          'https://dummyimage.com/400/000000/ffffff',
-        ],
-        index: null
-      };
-    },
-
-    components: {
-      'gallery': VueGallery
-    },
-  }
-</script> 
+export default defineComponent({
+  name: 'Autoplay',
+  components: {
+    Carousel,
+    Slide,
+    Pagination,
+  },
+})
+</script>
 
 <style scoped>
-  .image {
-    float: left;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    border: 1px solid #ebebeb;
-    margin: 5px;
-  }
+.carousel__slide {
+  padding: 5px;
+}
+
+.carousel__viewport {
+  perspective: 2000px;
+}
+
+.carousel__track {
+  transform-style: preserve-3d;
+}
+
+.carousel__slide--sliding {
+  transition: 0.5s;
+}
+
+.carousel__slide {
+  opacity: 0.9;
+  transform: rotateY(-20deg) scale(0.9);
+}
+
+.carousel__slide--active ~ .carousel__slide {
+  transform: rotateY(20deg) scale(0.9);
+}
+
+.carousel__slide--prev {
+  opacity: 1;
+  transform: rotateY(-10deg) scale(0.95);
+}
+
+.carousel__slide--next {
+  opacity: 1;
+  transform: rotateY(10deg) scale(0.95);
+}
+
+.carousel__slide--active {
+  opacity: 1;
+  transform: rotateY(0) scale(1.1);
+}
 </style>
