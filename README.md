@@ -1,6 +1,7 @@
 # Bioscoop
 
-This template should help get you started developing with Vue 3 in Vite.
+Om in Vue3 te leren bouwen ben ik begonnen aan een bioscoop webapplicatie waar men stoelen kunnen reserveren voor een specifieke film.
+
 
 ## Recommended IDE Setup
 
